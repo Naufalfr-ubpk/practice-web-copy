@@ -2,7 +2,7 @@
     @section('title', 'Masuk')
 
     <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-1 translatable" data-id="Selamat Datang 👋" data-en="Welcome Back 👋">Selamat Datang 👋</h2>
-    <p class="text-sm text-gray-400 mb-8 translatable" data-id="Masuk ke akun TechStore kamu untuk mulai belanja." data-en="Log in to your TechStore account to start shopping.">Masuk ke akun TechStore kamu untuk mulai belanja.</p>
+    <p class="text-sm text-gray-400 mb-8 translatable" data-id="Masuk ke akun FoodLumina kamu untuk mulai memesan." data-en="Log in to your FoodLumina account to start ordering.">Masuk ke akun FoodLumina kamu untuk mulai memesan.</p>
 
     {{-- Session Status --}}
     @if (session('status'))
@@ -19,7 +19,7 @@
                 <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-gray-400">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                 </span>
-                <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" placeholder="nama@email.com" class="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition placeholder:text-gray-300 dark:placeholder:text-gray-500">
+                <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" placeholder="nama@email.com" class="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none transition placeholder:text-gray-300 dark:placeholder:text-gray-500">
             </div>
             @error('email') <p class="text-xs text-red-500 mt-1.5">{{ $message }}</p> @enderror
         </div>
@@ -31,7 +31,7 @@
                 <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-gray-400">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                 </span>
-                <input id="password" type="password" name="password" required autocomplete="current-password" placeholder="••••••••" class="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition placeholder:text-gray-300 dark:placeholder:text-gray-500">
+                <input id="password" type="password" name="password" required autocomplete="current-password" placeholder="••••••••" class="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none transition placeholder:text-gray-300 dark:placeholder:text-gray-500">
             </div>
             @error('password') <p class="text-xs text-red-500 mt-1.5">{{ $message }}</p> @enderror
         </div>
@@ -39,16 +39,16 @@
         {{-- Remember & Forgot --}}
         <div class="flex items-center justify-between mb-6">
             <label for="remember_me" class="inline-flex items-center cursor-pointer">
-                <input id="remember_me" type="checkbox" name="remember" class="w-4 h-4 rounded border-gray-300 dark:border-gray-600 text-teal-500 focus:ring-teal-500 transition">
+                <input id="remember_me" type="checkbox" name="remember" class="w-4 h-4 rounded border-gray-300 dark:border-gray-600 text-amber-500 focus:ring-amber-500 transition">
                 <span class="ms-2 text-sm text-gray-500 dark:text-gray-400 translatable" data-id="Ingat saya" data-en="Remember me">Ingat saya</span>
             </label>
             @if (Route::has('password.request'))
-                <a href="{{ route('password.request') }}" class="text-sm text-teal-500 hover:text-teal-600 font-medium transition-colors translatable" data-id="Lupa password?" data-en="Forgot password?">Lupa password?</a>
+                <a href="{{ route('password.request') }}" class="text-sm text-amber-500 hover:text-amber-600 font-medium transition-colors translatable" data-id="Lupa password?" data-en="Forgot password?">Lupa password?</a>
             @endif
         </div>
 
         {{-- Submit --}}
-        <button type="submit" class="w-full py-3 px-4 bg-teal-500 hover:bg-teal-600 active:bg-teal-700 text-white font-bold rounded-xl text-sm transition-all duration-200 shadow-lg shadow-teal-500/25 hover:shadow-teal-500/40 translatable" data-id="Masuk" data-en="Login">
+        <button type="submit" class="w-full py-3 px-4 bg-amber-500 hover:bg-amber-600 active:bg-amber-700 text-white font-bold rounded-xl text-sm transition-all duration-200 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 translatable" data-id="Masuk" data-en="Login">
             Masuk
         </button>
 
@@ -67,7 +67,7 @@
 
         <p class="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
             <span class="translatable" data-id="Belum punya akun?" data-en="Don't have an account?">Belum punya akun?</span>  
-            <a href="{{ route('register') }}" class="text-teal-500 hover:text-teal-600 font-semibold transition-colors translatable" data-id="Daftar sekarang" data-en="Register now">Daftar sekarang</a>
+            <a href="{{ route('register') }}" class="text-amber-500 hover:text-amber-600 font-semibold transition-colors translatable" data-id="Daftar sekarang" data-en="Register now">Daftar sekarang</a>
         </p>
     </form>
 </x-guest-layout>

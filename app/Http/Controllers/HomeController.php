@@ -6,41 +6,59 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    /**
-     * Menampilkan halaman utama website e-commerce
-     */
     public function index()
     {
-        // DATA DUMMY PRODUK KOMPUTER (Hanya untuk keperluan Praktikum 4)
-        // Di Praktikum 8 nanti, ini akan diganti menjadi $featuredProducts = Product::all();
+        // Data Dummy FoodLumina (Updated Images & Translations)
         $featuredProducts = [
             [
                 'id' => 1,
-                'name' => 'Laptop ASUS ROG Zephyrus G14 (2024)',
-                'price' => 28500000,
-                'category' => 'Laptop Gaming',
-                'image' => 'https://images.unsplash.com/photo-1603302576837-37561b2e2302?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+                'name_id' => 'Steak Wagyu A5 Premium',
+                'name_en' => 'Premium A5 Wagyu Steak',
+                'slug' => 'wagyu-a5-premium',
+                'price' => 850000,
+                'image' => 'https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=800&q=80',
+                'category_id' => 'Hidangan Utama',
+                'category_en' => 'Main Course'
             ],
             [
                 'id' => 2,
-                'name' => 'VGA NVIDIA RTX 4080 Super 16GB',
-                'price' => 18900000,
-                'category' => 'Graphics Card',
-                'image' => 'https://images.unsplash.com/photo-1591488320449-011701bb6704?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+                'name_id' => 'Sushi Salmon Pilihan',
+                'name_en' => 'Signature Salmon Sushi',
+                'slug' => 'signature-salmon-sushi',
+                'price' => 320000,
+                'image' => 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=800&q=80',
+                'category_id' => 'Menu Asia',
+                'category_en' => 'Asian Menu'
             ],
             [
                 'id' => 3,
-                'name' => 'RAM Corsair Vengeance RGB 32GB DDR5',
-                'price' => 3200000,
-                'category' => 'Memory (RAM)',
-                'image' => 'https://images.unsplash.com/photo-1541029071515-84cc54f84dc5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+                'name_id' => 'Pasta Jamur Truffle',
+                'name_en' => 'Truffle Mushroom Pasta',
+                'slug' => 'truffle-mushroom-pasta',
+                'price' => 185000,
+                'image' => 'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=800&q=80',
+                'category_id' => 'Pasta',
+                'category_en' => 'Pasta'
             ],
             [
                 'id' => 4,
-                'name' => 'SSD Samsung 990 PRO 2TB NVMe',
-                'price' => 2800000,
-                'category' => 'Storage',
-                'image' => 'https://images.unsplash.com/photo-1597852074816-d933c7d2b988?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+                'name_id' => 'Dessert Tiramisu Matcha',
+                'name_en' => 'Matcha Tiramisu Dessert',
+                'slug' => 'matcha-tiramisu',
+                'price' => 95000,
+                'image' => 'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=800&q=80',
+                'category_id' => 'Hidangan Penutup',
+                'category_en' => 'Dessert'
+            ],
+            [
+                'id' => 5,
+                'name_id' => 'Burger Daging Artisan',
+                'name_en' => 'Artisan Beef Burger',
+                'slug' => 'artisan-beef-burger',
+                'price' => 145000,
+                'image' => 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80',
+                'category_id' => 'Cepat Saji',
+                'category_en' => 'Fast Food'
             ],
         ];
 
