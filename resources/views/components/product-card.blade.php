@@ -1,5 +1,7 @@
 <div class="group relative rounded-2xl overflow-hidden backdrop-blur-xl bg-white/70 dark:bg-gray-800/60 border border-gray-200/50 dark:border-gray-700/50 hover:shadow-xl hover:shadow-amber-500/10 transition-all duration-300">
-    <a href="#" class="block aspect-[4/3] overflow-hidden">
+
+    <a href="{{ route('products.show', $product['slug'] ?? 'slug') }}" class="block aspect-[4/3] overflow-hidden">
+
         <img src="{{ $product['image'] }}" alt="{{ $product['name_id'] }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
         <div class="absolute top-2 right-2 bg-white/80 dark:bg-black/60 backdrop-blur-sm px-2 py-1 rounded-md text-[10px] font-bold text-amber-600 dark:text-amber-400 translatable" data-id="{{ $product['category_id'] ?? 'Menu' }}" data-en="{{ $product['category_en'] ?? 'Menu' }}">
             {{ $product['category_id'] ?? 'Menu' }}

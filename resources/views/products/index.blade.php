@@ -4,9 +4,9 @@
 
 @section('content')
 <div class="space-y-6">
-    <div class="pb-4 border-b border-gray-100">
-        <h1 class="text-2xl font-bold text-gray-900 translatable" data-id="Katalog Produk Komputer" data-en="Computer Product Catalog">Katalog Produk Komputer</h1>
-        <p class="text-sm text-gray-400 mt-1 translatable" data-id="Temukan segala komponen PC, Laptop gaming, hingga aksesoris mekanikal impianmu." data-en="Find all PC components, gaming laptops, and your dream mechanical accessories.">Temukan segala komponen PC, Laptop gaming, hingga aksesoris mekanikal impianmu.</p>
+    <div class="pb-4 border-b border-gray-200/50 dark:border-gray-700/50">
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-white translatable" data-id="Katalog Menu FoodLumina" data-en="FoodLumina Menu Catalog">Katalog Menu FoodLumina</h1>
+        <p class="text-sm text-gray-400 mt-1 translatable" data-id="Temukan berbagai hidangan premium dari seluruh dunia untuk memanjakan lidah Anda." data-en="Find various premium dishes from around the world to pamper your taste buds.">Temukan berbagai hidangan premium dari seluruh dunia untuk memanjakan lidah Anda.</p>
     </div>
 
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
