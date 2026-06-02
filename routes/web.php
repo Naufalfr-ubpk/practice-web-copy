@@ -18,7 +18,7 @@ Route::get('/products/{slug}', [ProductController::class, 'show'])->name('produc
 
 /*
 |--------------------------------------------------------------------------
-| Authenticated Routes (Harus login dulu)
+| Authenticated Routes (Harus login dulu) - UNTUK CUSTOMER
 |--------------------------------------------------------------------------
 */
 Route::middleware('auth')->group(function () {
@@ -28,7 +28,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/cart/{id}', [CartController::class, 'update'])->name('cart.update');
     Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
 
-    
     // Checkout & Payment
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
@@ -44,13 +43,13 @@ Route::middleware('auth')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
-| Admin Routes (Harus login + role admin)
+| Admin Routes (Harus login + role admin) - KHUSUS ADMIN
 |--------------------------------------------------------------------------
 */
 Route::middleware(['auth', 'isAdmin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', function () {
-        return 'Halaman Admin Dashboard (akan dibuat di Praktikum 8)';
-    })->name('dashboard');
+    Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('orders', \App\Http\Controllers\Admin\OrderController::class)->only(['index', 'show', 'update']);
+    Route::resource('products', \App\Http\Controllers\Admin\ProductController::class);
 });
 
 // Auth routes dari Breeze (login, register, logout, dll)

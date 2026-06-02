@@ -10,11 +10,18 @@
                 <span class="font-black text-xl tracking-tight text-gray-900 dark:text-white">Food<span class="text-amber-500">Lumina</span></span>
             </a>
             
+            {{-- Center Menu --}}
             <div class="hidden md:flex items-center space-x-8">
-                <a href="{{ route('home') }}" class="text-amber-500 text-sm font-bold underline underline-offset-4 decoration-2 translatable" data-id="Beranda" data-en="Home">Beranda</a>
-                <a href="{{ route('products.index') }}" class="text-gray-600 dark:text-gray-300 text-sm font-semibold hover:text-amber-500 transition-colors translatable" data-id="Menu" data-en="Menu">Menu</a>
-                <a href="#" class="text-gray-600 dark:text-gray-300 text-sm font-semibold hover:text-amber-500 transition-colors translatable" data-id="Reservasi" data-en="Reservation">Reservasi</a>
-                <a href="#" class="text-gray-600 dark:text-gray-300 text-sm font-semibold hover:text-amber-500 transition-colors translatable" data-id="Kontak" data-en="Contact">Kontak</a>
+                @if(request()->is('admin*'))
+                    <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'text-amber-500 underline underline-offset-4 decoration-2' : 'text-gray-600 dark:text-gray-300 hover:text-amber-500' }} text-sm font-bold transition-colors translatable" data-id="Admin Dashboard" data-en="Admin Dashboard">Admin Dashboard</a>
+                    <a href="{{ route('admin.orders.index') }}" class="{{ request()->routeIs('admin.orders.*') ? 'text-amber-500 underline underline-offset-4 decoration-2' : 'text-gray-600 dark:text-gray-300 hover:text-amber-500' }} text-sm font-bold transition-colors translatable" data-id="Kelola Pesanan" data-en="Manage Orders">Kelola Pesanan</a>
+                    <a href="{{ route('admin.products.index') }}" class="{{ request()->routeIs('admin.products.*') ? 'text-amber-500 underline underline-offset-4 decoration-2' : 'text-gray-600 dark:text-gray-300 hover:text-amber-500' }} text-sm font-bold transition-colors translatable" data-id="Kelola Stok Menu" data-en="Manage Stock">Kelola Stok Menu</a>
+                @else
+                    <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'text-amber-500 underline underline-offset-4 decoration-2' : 'text-gray-600 dark:text-gray-300 hover:text-amber-500' }} text-sm font-bold transition-colors translatable" data-id="Beranda" data-en="Home">Beranda</a>
+                    <a href="{{ route('products.index') }}" class="{{ request()->routeIs('products.*') ? 'text-amber-500 underline underline-offset-4 decoration-2' : 'text-gray-600 dark:text-gray-300 hover:text-amber-500' }} text-sm font-semibold transition-colors translatable" data-id="Menu" data-en="Menu">Menu</a>
+                    <a href="#" class="text-gray-600 dark:text-gray-300 text-sm font-semibold hover:text-amber-500 transition-colors translatable" data-id="Reservasi" data-en="Reservation">Reservasi</a>
+                    <a href="#" class="text-gray-600 dark:text-gray-300 text-sm font-semibold hover:text-amber-500 transition-colors translatable" data-id="Kontak" data-en="Contact">Kontak</a>
+                @endif
             </div>
 
             <div class="flex items-center space-x-4">
@@ -36,25 +43,27 @@
                     <svg id="iconMoon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
                 </button>
 
-                {{-- Cart --}}
-                <a href="{{ route('cart.index') }}" class="relative p-2 text-gray-500 dark:text-gray-400 hover:text-amber-500 dark:hover:text-amber-400 transition-colors">
-                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                    
-                    {{-- Badge Notifikasi Cart --}}
-                    @auth
-                        @php
-                            $cartCount = \App\Models\CartItem::whereHas('cart', function($q) {
-                                $q->where('user_id', \Illuminate\Support\Facades\Auth::id());
-                            })->sum('quantity');
-                        @endphp
+               {{-- Cart --}}
+                @if(!request()->is('admin*'))
+                    <a href="{{ route('cart.index') }}" class="relative p-2 text-gray-500 dark:text-gray-400 hover:text-amber-500 dark:hover:text-amber-400 transition-colors">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                        
+                        {{-- Badge Notifikasi Cart --}}
+                        @auth
+                            @php
+                                $cartCount = \App\Models\CartItem::whereHas('cart', function($q) {
+                                    $q->where('user_id', \Illuminate\Support\Facades\Auth::id());
+                                })->sum('quantity');
+                            @endphp
 
-                        @if($cartCount > 0)
-                            <span class="absolute top-0 right-0 inline-flex items-center justify-center w-5 h-5 text-[10px] font-bold text-white bg-red-500 rounded-full border-2 border-white dark:border-gray-900 shadow-sm transform translate-x-1/4 -translate-y-1/4">
-                                {{ $cartCount > 99 ? '99+' : $cartCount }}
-                            </span>
-                        @endif
-                    @endauth
-                </a>
+                            @if($cartCount > 0)
+                                <span class="absolute top-0 right-0 inline-flex items-center justify-center w-4 h-4 text-[9px] font-bold text-white bg-red-500 rounded-full border border-white dark:border-gray-900 transform translate-x-1/2 -translate-y-1/2">
+                                    {{ $cartCount > 99 ? '99+' : $cartCount }}
+                                </span>
+                            @endif
+                        @endauth
+                    </a>
+                @endif
 
                 {{-- AUTH SECTION --}}
                 @auth
