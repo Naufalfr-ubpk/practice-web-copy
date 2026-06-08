@@ -46,10 +46,17 @@ Route::middleware('auth')->group(function () {
 | Admin Routes (Harus login + role admin) - KHUSUS ADMIN
 |--------------------------------------------------------------------------
 */
+
 Route::middleware(['auth', 'isAdmin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
     Route::resource('orders', \App\Http\Controllers\Admin\OrderController::class)->only(['index', 'show', 'update']);
     Route::resource('products', \App\Http\Controllers\Admin\ProductController::class);
+
+   // Rute Baru Praktikum 11: Laporan Penjualan & Cetak View
+   Route::prefix('reports')->name('reports.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\Admin\ReportController::class, 'index'])->name('index');
+        Route::get('/print', [\App\Http\Controllers\Admin\ReportController::class, 'print'])->name('print');
+    });
 });
 
 // Auth routes dari Breeze (login, register, logout, dll)

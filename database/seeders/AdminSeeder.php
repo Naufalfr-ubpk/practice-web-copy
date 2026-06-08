@@ -9,14 +9,14 @@ use Illuminate\Support\Facades\Hash;
 class AdminSeeder extends Seeder
 {
     /**
-     * Membuat akun admin default untuk TechStore.
+     * Membuat akun admin default untuk FoodLumina.
      */
     public function run(): void
     {
         User::updateOrCreate(
-            ['email' => 'admin@techstore.com'],
+            ['email' => 'admin@foodlumina.com'],
             [
-                'name'     => 'Admin TechStore',
+                'name'     => 'Admin FoodLumina',
                 'password' => Hash::make('password'),
                 'role'     => 'admin',
             ]

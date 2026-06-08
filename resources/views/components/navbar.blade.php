@@ -1,13 +1,13 @@
 <nav class="sticky top-0 z-50 backdrop-blur-lg bg-white/80 dark:bg-gray-900/80 border-b border-gray-200/50 dark:border-gray-700/50 transition-colors duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
-            <a href="{{ route('home') }}" class="flex items-center gap-2">
-                <div class="p-1.5 bg-amber-500 rounded-lg shadow-sm">
-                    <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                    </svg>
-                </div>
-                <span class="font-black text-xl tracking-tight text-gray-900 dark:text-white">Food<span class="text-amber-500">Lumina</span></span>
+
+            <a href="{{ route('home') }}" class="flex items-center gap-3 group">
+                <img src="{{ asset('images/logo-foodlumina.png') }}" alt="FoodLumina Logo" class="h-11 w-11 object-contain drop-shadow-md rounded-xl transition-transform group-hover:scale-105">
+                
+                <span class="font-black text-2xl tracking-tight text-gray-900 dark:text-white">
+                    Food<span class="text-amber-500">Lumina</span>
+                </span>
             </a>
             
             {{-- Center Menu --}}
@@ -16,6 +16,9 @@
                     <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'text-amber-500 underline underline-offset-4 decoration-2' : 'text-gray-600 dark:text-gray-300 hover:text-amber-500' }} text-sm font-bold transition-colors translatable" data-id="Admin Dashboard" data-en="Admin Dashboard">Admin Dashboard</a>
                     <a href="{{ route('admin.orders.index') }}" class="{{ request()->routeIs('admin.orders.*') ? 'text-amber-500 underline underline-offset-4 decoration-2' : 'text-gray-600 dark:text-gray-300 hover:text-amber-500' }} text-sm font-bold transition-colors translatable" data-id="Kelola Pesanan" data-en="Manage Orders">Kelola Pesanan</a>
                     <a href="{{ route('admin.products.index') }}" class="{{ request()->routeIs('admin.products.*') ? 'text-amber-500 underline underline-offset-4 decoration-2' : 'text-gray-600 dark:text-gray-300 hover:text-amber-500' }} text-sm font-bold transition-colors translatable" data-id="Kelola Stok Menu" data-en="Manage Stock">Kelola Stok Menu</a>
+                 
+                    {{-- Link Baru Praktikum 11 --}}
+                    <a href="{{ route('admin.reports.index') }}" class="{{ request()->routeIs('admin.reports.*') ? 'text-amber-500 underline underline-offset-4 decoration-2' : 'text-gray-600 dark:text-gray-300 hover:text-amber-500' }} text-sm font-bold transition-colors translatable" data-id="Laporan Penjualan" data-en="Sales Report">Laporan Penjualan</a>
                 @else
                     <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'text-amber-500 underline underline-offset-4 decoration-2' : 'text-gray-600 dark:text-gray-300 hover:text-amber-500' }} text-sm font-bold transition-colors translatable" data-id="Beranda" data-en="Home">Beranda</a>
                     <a href="{{ route('products.index') }}" class="{{ request()->routeIs('products.*') ? 'text-amber-500 underline underline-offset-4 decoration-2' : 'text-gray-600 dark:text-gray-300 hover:text-amber-500' }} text-sm font-semibold transition-colors translatable" data-id="Menu" data-en="Menu">Menu</a>
