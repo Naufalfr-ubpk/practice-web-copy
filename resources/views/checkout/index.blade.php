@@ -24,29 +24,36 @@
                         <h2 class="text-xl font-bold text-gray-900 dark:text-white translatable" data-id="Alamat Pengiriman" data-en="Delivery Address">Alamat Pengiriman</h2>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
+                   <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div class="space-y-2">
                             <label class="text-sm font-bold text-gray-700 dark:text-gray-300 translatable" data-id="Nama Penerima" data-en="Recipient Name">Nama Penerima</label>
                             <input type="text" value="{{ Auth::user()->name }}" disabled 
                                 class="w-full px-5 py-3.5 rounded-xl border border-gray-200/50 dark:border-gray-700/50 bg-gray-50/50 dark:bg-gray-900/50 text-gray-400 font-bold focus:ring-0 cursor-not-allowed">
                         </div>
+
                         <div class="space-y-2">
-                            <label for="phone" class="text-sm font-bold text-gray-700 dark:text-gray-300 translatable" data-id="Nomor Telepon / WA" data-en="Phone / WhatsApp">Nomor Telepon / WA</label>
-                            <input type="text" name="phone" id="phone" required placeholder="08123456789" 
-                                class="w-full px-5 py-3.5 rounded-xl border border-gray-200 dark:border-gray-600 bg-white/50 dark:bg-gray-900/50 text-gray-900 dark:text-white font-bold focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all outline-none">
+                            <label for="phone" class="text-sm font-bold text-gray-700 dark:text-gray-300 translatable" data-id="Nomor Telepon / WA" data-en="Phone Number / WhatsApp">Nomor Telepon / WA</label>
+                            <input type="text" name="phone" id="phone" value="{{ old('phone') }}" required placeholder="08123456789" class="w-full px-5 py-3.5 rounded-xl border {{ $errors->has('phone') ? 'border-red-500' : 'border-gray-200 dark:border-gray-700' }} bg-white dark:bg-gray-900 text-gray-900 dark:text-white font-bold focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all outline-none">
+                            @error('phone')
+                                <p class="text-red-500 text-xs font-bold">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
 
                     <div class="space-y-2">
-                        <label for="address" class="text-sm font-bold text-gray-700 dark:text-gray-300 translatable" data-id="Alamat Lengkap" data-en="Full Address">Alamat Lengkap</label>
-                        <textarea name="address" id="address" rows="3" required placeholder="Jl. Nama Jalan, No. Rumah..." 
-                            class="w-full px-5 py-3.5 rounded-xl border border-gray-200 dark:border-gray-600 bg-white/50 dark:bg-gray-900/50 text-gray-900 dark:text-white font-bold focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all outline-none resize-none"></textarea>
+                        <label for="address" class="text-sm font-bold text-gray-700 dark:text-gray-300 translatable" data-id="Alamat Lengkap (Min. 10 Karakter)" data-en="Full Address (Min. 10 Characters)">Alamat Lengkap (Min. 10 Karakter)</label>
+                        <textarea name="address" id="address" rows="3" required placeholder="Jl. Nama Jalan, No. Rumah, Kecamatan, Kota ... " class="w-full px-5 py-3.5 rounded-xl border {{ $errors->has('address') ? 'border-red-500' : 'border-gray-200 dark:border-gray-700' }} bg-white dark:bg-gray-900 text-gray-900 dark:text-white font-bold focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all outline-none resize-none">{{ old('address') }}</textarea>
+                        @error('address')
+                            <p class="text-red-500 text-xs font-bold">{{ $message }}</p>
+                        @enderror
                     </div>
-                </div>
+
 
                 {{-- Daftar Sajian --}}
                 <div class="backdrop-blur-xl bg-white/70 dark:bg-gray-800/60 rounded-3xl border border-gray-200/50 dark:border-gray-700/50 p-8 shadow-xl">
                     <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-6 translatable" data-id="Sajian yang Dipesan" data-en="Ordered Dishes">Sajian yang Dipesan</h3>
+                  
                     <div class="space-y-4">
                         @foreach($cart->items as $item)
                             <div class="flex items-center gap-4 py-4 border-b border-gray-100 dark:border-gray-700 last:border-0">
@@ -59,6 +66,7 @@
                                         {{ $item->quantity }} <span class="translatable" data-id="porsi" data-en="portion">porsi</span> x <span class="text-amber-500">Rp {{ number_format($item->product->price, 0, ',', '.') }}</span>
                                     </p>
                                 </div>
+
                                 <div class="text-right">
                                     <p class="text-sm font-bold text-gray-900 dark:text-white">
                                         Rp {{ number_format($item->product->price * $item->quantity, 0, ',', '.') }}

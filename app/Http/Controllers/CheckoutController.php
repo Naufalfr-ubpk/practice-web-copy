@@ -15,44 +15,46 @@ class CheckoutController extends Controller
     /**
      * Menampilkan halaman proses checkout (Isi Alamat)
      */
+
+
     public function index()
     {
-        $user = Auth::user();
-        $cart = Cart::with('items.product')->where('user_id', $user->id)->first();
+        $cart = Cart::with('items.product')->where('user_id', Auth::id())->first();
 
         if (!$cart || $cart->items->isEmpty()) {
-            return redirect()->route('cart.index')->with('error', 'Keranjang pesanan Anda kosong.');
+            return redirect()->route('cart.index')->with('error', 'Keranjang belanja Anda masih kosong.');
         }
 
-        $total = $cart->items->sum(function($item) {
-            return $item->quantity * $item->product->price;
-        });
+        // REFACTORING 1: Gaya Looping Aman (Anti Error Sum Warning & Nullsafe)
+        $total = 0;
+        foreach ($cart->items as $item) {
+            $total += $item->quantity * ($item->product?->price ?? 0);
+        }
 
         return view('checkout.index', compact('cart', 'total'));
     }
 
-    /**
-     * Menyimpan data order awal (Status: Pending)
-     */
     public function store(Request $request)
     {
         $request->validate([
+            'phone' => 'required|string|min:11|max:13',
             'address' => 'required|string|min:10',
-            'phone' => 'required|string|min:10',
         ]);
 
         $user = Auth::user();
         $cart = Cart::with('items.product')->where('user_id', $user->id)->first();
 
         if (!$cart || $cart->items->isEmpty()) {
-            return redirect()->route('cart.index')->with('error', 'Tidak ada sajian untuk di-checkout.');
+            return redirect()->route('cart.index')->with('error', 'Keranjang belanja Anda masih kosong.');
         }
 
         DB::beginTransaction();
         try {
-            $totalAmount = $cart->items->sum(function($item) {
-                return $item->quantity * $item->product->price;
-            });
+            // REFACTORING 2: Gaya Looping Aman di Proses Store Database
+            $totalAmount = 0;
+            foreach ($cart->items as $item) {
+                $totalAmount += $item->quantity * ($item->product?->price ?? 0);
+            }
 
             // 1. Buat Order
             $order = Order::create([
@@ -64,8 +66,11 @@ class CheckoutController extends Controller
                 'phone' => $request->phone,
             ]);
 
-            // 2. Pindahkan items
+            // 2. Pindahkan items (Aman dari Bug Produk Hilang)
             foreach ($cart->items as $item) {
+                // REFACTORING 3: Perlindungan Murni - Lewati Jika Produk Keburu Dihapus
+                if (!$item->product) continue; 
+                
                 OrderItem::create([
                     'order_id' => $order->id,
                     'product_id' => $item->product_id,
@@ -75,17 +80,21 @@ class CheckoutController extends Controller
                 ]);
             }
 
-            // 3. Kosongkan keranjang
+            // 3. Bersihkan keranjang
             $cart->items()->delete();
+            $cart->delete();
 
             DB::commit();
-            return redirect()->route('checkout.payment', $order->invoice_number);
+
+            return redirect()->route('checkout.payment', $order->invoice_number)
+                ->with('success', 'Pesanan berhasil dibuat! Silakan lanjutkan ke pembayaran.');
 
         } catch (\Exception $e) {
             DB::rollBack();
-            return back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            return back()->with('error', 'Terjadi kesalahan saat memproses pesanan: ' . $e->getMessage());
         }
     }
+
 
     /**
      * Halaman Simulasi Pembayaran
